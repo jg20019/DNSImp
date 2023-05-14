@@ -8,11 +8,11 @@ namespace DNSImp
 {
     public class DNSQuestion
     {
-        private string Name { get; set; }
+        private byte[] Name { get; set; }
         private ushort Type { get ; set; }
         private ushort Class { get; set; }
 
-        public DNSQuestion(string name, ushort type, ushort @class)
+        public DNSQuestion(byte[] name, ushort type, ushort @class)
         {
             Name = name;
             Type = type;
@@ -21,9 +21,8 @@ namespace DNSImp
 
         public byte[] ToBytes()
         {
-            var builder = new StringBuilder();
             var bytes = new List<byte>();
-            bytes.AddRange(BitUtils.GetBytes(Name));
+            bytes.AddRange(Name);
             bytes.AddRange(BitUtils.GetBytes(Type));
             bytes.AddRange(BitUtils.GetBytes(Class));
             return bytes.ToArray();
