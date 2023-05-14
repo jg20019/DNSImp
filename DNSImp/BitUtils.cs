@@ -14,7 +14,7 @@ namespace DNSImp
             var bytes = BitConverter.GetBytes(data);
             if (BitConverter.IsLittleEndian)
             {
-                bytes = bytes.Reverse().ToArray();
+               Array.Reverse(bytes);
             }
 
             return bytes;
@@ -26,9 +26,17 @@ namespace DNSImp
             var bytes = Encoding.ASCII.GetBytes(data);
             if (BitConverter.IsLittleEndian)
             {
-                bytes = bytes.Reverse().ToArray();
+               Array.Reverse(bytes);
             }
             return bytes;
+        }
+
+        public static void WriteBytes(byte[] bytes)
+        {
+            foreach(var b in bytes)
+            {
+                Console.Write($"\\x{b:x2}"); 
+            }
         }
     }
 }

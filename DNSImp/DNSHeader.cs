@@ -30,13 +30,14 @@ namespace DNSImp
 
         public byte[] ToBytes()
         {
-            return BitUtils.GetBytes(this.ID)
-                .Concat(BitUtils.GetBytes(this.Flags))
-                .Concat(BitUtils.GetBytes(this.NumQuestions))
-                .Concat(BitUtils.GetBytes(this.NumAnswers))
-                .Concat(BitUtils.GetBytes(this.NumAuthorities))
-                .Concat(BitUtils.GetBytes(this.NumAdditionals))
-                .ToArray();
+            var bytes = new List<byte>();
+            bytes.AddRange(BitUtils.GetBytes(ID));
+            bytes.AddRange(BitUtils.GetBytes(this.Flags));
+            bytes.AddRange(BitUtils.GetBytes(this.NumQuestions));
+            bytes.AddRange(BitUtils.GetBytes(this.NumAnswers));
+            bytes.AddRange(BitUtils.GetBytes(this.NumAuthorities));
+            bytes.AddRange(BitUtils.GetBytes(this.NumAdditionals));
+            return bytes.ToArray();
         }
     }
 }

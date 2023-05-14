@@ -21,10 +21,12 @@ namespace DNSImp
 
         public byte[] ToBytes()
         {
-            return BitUtils.GetBytes(Name)
-                .Concat(BitUtils.GetBytes(Type))
-                .Concat(BitUtils.GetBytes(Class))
-                .ToArray();
+            var builder = new StringBuilder();
+            var bytes = new List<byte>();
+            bytes.AddRange(BitUtils.GetBytes(Name));
+            bytes.AddRange(BitUtils.GetBytes(Type));
+            bytes.AddRange(BitUtils.GetBytes(Class));
+            return bytes.ToArray();
         }
     }
 }
