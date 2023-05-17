@@ -35,7 +35,7 @@ namespace DNSImp
         {
             foreach(var b in bytes)
             {
-                Console.Write($"\\x{b:x2}"); 
+                Console.Write($"{b:x2} "); 
             }
         }
     }
