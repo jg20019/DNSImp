@@ -13,7 +13,7 @@ namespace DNSImp
             foreach(var part in domainName.Split('.'))
             {
                 bytes.Add((byte)part.Length);
-                bytes.AddRange(BitUtils.GetBytes(part));
+                bytes.AddRange(Encoding.ASCII.GetBytes(part));
             }
             bytes.AddRange(BitUtils.GetBytes((ushort)0));
             return bytes.ToArray();
