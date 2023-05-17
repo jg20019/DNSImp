@@ -15,7 +15,7 @@ namespace DNSImp
                 bytes.Add((byte)part.Length);
                 bytes.AddRange(Encoding.ASCII.GetBytes(part));
             }
-            bytes.AddRange(BitUtils.GetBytes((ushort)0));
+            bytes.Add((byte)0);
             return bytes.ToArray();
         }
 
