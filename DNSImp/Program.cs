@@ -11,11 +11,16 @@ udpClient.Connect(ep);
 udpClient.Send(query);
 var response = udpClient.Receive(ref ep);
 
-var stream = new MemoryStream(response);
-var reader = new BinaryReader(stream);
-var header = DNSHeader.FromReader(reader);
-var question = DNSQuestion.FromReader(reader);
-var record = DNSRecord.FromReader(reader);
+using (var stream = new MemoryStream(response))
+{
+    using (var reader = new BinaryReader(stream))
+    {
+        var header = DNSHeader.FromReader(reader);
+        var question = DNSQuestion.FromReader(reader);
+        var record = DNSRecord.FromReader(reader);
+    }
+}
+
 
 Console.WriteLine("Press any key to continue...");
 Console.ReadKey();
