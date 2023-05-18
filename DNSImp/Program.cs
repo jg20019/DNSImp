@@ -1,4 +1,5 @@
 ﻿using DNSImp;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Sockets;
 
@@ -12,6 +13,9 @@ udpClient.Send(query);
 var response = udpClient.Receive(ref ep);
 Console.WriteLine(Convert.ToHexString(response));
 Console.Write("receive data from " + ep.ToString());
+var stream = new MemoryStream(response);
+var reader = new BinaryReader(stream);
+var header = DNSHeader.FromReader(reader);
 Console.WriteLine();
 Console.WriteLine("Press any key to continue...");
 Console.ReadKey();

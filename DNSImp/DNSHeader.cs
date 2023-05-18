@@ -28,6 +28,17 @@ namespace DNSImp
             this.NumAdditionals = numAdditionals;
         }
 
+        // Create DNSHeader by reading the response.
+        public static DNSHeader FromReader(BinaryReader reader)
+        {
+            ushort id = BitUtils.ToUInt16(reader.ReadBytes(2));
+            ushort flags = BitUtils.ToUInt16(reader.ReadBytes(2));
+            ushort numQuestions = BitUtils.ToUInt16(reader.ReadBytes(2));
+            ushort numAnswers = BitUtils.ToUInt16(reader.ReadBytes(2));
+            ushort numAuthorities = BitUtils.ToUInt16(reader.ReadBytes(2));
+            ushort numAdditionals = BitUtils.ToUInt16(reader.ReadBytes(2));
+            return new DNSHeader(id, flags, numQuestions, numAnswers, numAuthorities, numAdditionals);
+        }
         public byte[] ToBytes()
         {
             var bytes = new List<byte>();
@@ -38,6 +49,11 @@ namespace DNSImp
             bytes.AddRange(BitUtils.GetBytes(this.NumAuthorities));
             bytes.AddRange(BitUtils.GetBytes(this.NumAdditionals));
             return bytes.ToArray();
+        }
+
+        public override string ToString()
+        {
+            return $"DNSHeader: id={ID} flags={Flags} numQuestions={NumQuestions} numAnswers={NumAnswers} numAuthorities={NumAuthorities} numAdditionals={NumAdditionals}";
         }
     }
 }
